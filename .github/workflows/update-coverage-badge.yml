@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Ensure you use the latest version
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -43,10 +43,12 @@ jobs:
           sed -i "s|!\[Coverage Badge\](.*)|$badge_url|" README.md
 
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update coverage badge"
+          commit_message: "ci(github-actions): update coverage badge"
           file_pattern: README.md
           branch: main
           skip_dirty_check: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
