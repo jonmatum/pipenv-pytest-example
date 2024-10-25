@@ -27,7 +27,7 @@ def test_get_weather_none_temperature(mock_get):
     """
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.json.return_value = {"temperature": None}  # Simulate None temperature
+    mock_response.json.return_value = {"temperature": None}
     mock_get.return_value = mock_response
 
     with pytest.raises(
@@ -74,7 +74,7 @@ def test_get_weather_json_parsing_error(mock_get):
     """
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.json.side_effect = ValueError  # Simulate JSON parsing error
+    mock_response.json.side_effect = ValueError
     mock_get.return_value = mock_response
 
     with pytest.raises(WeatherServiceError, match="Failed to parse weather data"):
@@ -86,7 +86,7 @@ def test_get_weather_request_exception(mock_get):
     """
     Test that get_weather raises WeatherServiceError if a request exception occurs.
     """
-    mock_get.side_effect = RequestException("Network error")  # Simulate a network error
+    mock_get.side_effect = RequestException("Network error")
 
     with pytest.raises(
         WeatherServiceError, match="Failed to fetch weather data for New York"

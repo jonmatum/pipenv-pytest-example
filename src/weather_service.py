@@ -1,4 +1,3 @@
-# src/weather_service.py
 from typing import Optional
 
 import requests
