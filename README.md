@@ -60,7 +60,7 @@ python-test/
 
 ## Setup and Installation
 
-1. **Install Pipenv**  
+1. **Install Pipenv**
    If Pipenv is not installed, install it globally using:
 
    ```bash

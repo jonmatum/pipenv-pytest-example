@@ -1,7 +1,8 @@
 # src/weather_service.py
+from typing import Optional
+
 import requests
 from requests.exceptions import RequestException
-from typing import Optional
 
 
 class WeatherServiceError(Exception):

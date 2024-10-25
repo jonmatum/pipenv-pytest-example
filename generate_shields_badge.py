@@ -1,5 +1,5 @@
-import xml.etree.ElementTree as ET
 import urllib.parse
+import xml.etree.ElementTree as ET
 
 
 def get_coverage_percentage(xml_file="coverage.xml"):
