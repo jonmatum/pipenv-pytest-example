@@ -1,6 +1,6 @@
 # Python Weather Service Project - Example for Setting Up Pytest and Pipenv
 
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
+![Coverage Badge](https://img.shields.io/badge/coverage-0%25-red)
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 

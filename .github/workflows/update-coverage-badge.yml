@@ -1,0 +1,52 @@
+name: Update Coverage Badge
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run tests with coverage
+        run: |
+          pipenv run pytest --cov=src --cov-report=xml
+
+      - name: Generate Shields.io badge link
+        id: generate_badge
+        run: |
+          coverage_badge=$(pipenv run python generate_shields_badge.py)
+          echo "$coverage_badge" > badge.txt
+        shell: bash
+
+      - name: Update README.md with new coverage badge
+        run: |
+          badge_url=$(cat badge.txt)
+          sed -i "s|!\[Coverage Badge\](.*)|$badge_url|" README.md
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update coverage badge"
+          file_pattern: README.md
+          branch: main
+          skip_dirty_check: true
+
