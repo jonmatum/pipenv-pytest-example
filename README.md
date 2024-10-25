@@ -71,8 +71,8 @@ python-test/
    Clone this project repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/python-test.git
-   cd python-test
+   git clone git@github.com:jonmatum/pipenv-pytest-example.git
+   cd pipenv-pytest-example
    ```
 
 3. **Install Dependencies**
