@@ -51,4 +51,3 @@ jobs:
           skip_dirty_check: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

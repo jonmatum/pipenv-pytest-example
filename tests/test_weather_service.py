@@ -1,7 +1,9 @@
+from unittest.mock import Mock, patch
+
 import pytest  # type: ignore
-from src.weather_service import get_weather, WeatherServiceError
-from unittest.mock import patch, Mock
 from requests.exceptions import RequestException
+
+from src.weather_service import WeatherServiceError, get_weather
 
 
 @patch("src.weather_service.requests.get")
