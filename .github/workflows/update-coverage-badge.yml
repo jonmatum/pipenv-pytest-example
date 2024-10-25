@@ -11,10 +11,14 @@ on:
 jobs:
   update-badge:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4  # Ensure you use the latest version
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,19 +39,25 @@ jobs:
         run: |
           coverage_badge=$(pipenv run python generate_shields_badge.py)
           echo "$coverage_badge" > badge.txt
-        shell: bash
 
       - name: Update README.md with new coverage badge
         run: |
           badge_url=$(cat badge.txt)
           sed -i "s|!\[Coverage Badge\](.*)|$badge_url|" README.md
 
+      # Commit and push changes
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "ci(github-actions): update coverage badge"
-          file_pattern: README.md
-          branch: main
-          skip_dirty_check: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+          # Add the modified files
+          git add README.md
+
+          # Commit the changes
+          git commit -m "ci(github-actions): update coverage badge"
+
+          # Push the changes back to the branch
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
