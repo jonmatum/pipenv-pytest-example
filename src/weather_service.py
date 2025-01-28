@@ -1,6 +1,7 @@
 from typing import Optional
 
 import requests
+import json
 from requests.exceptions import RequestException
 
 
@@ -41,5 +42,5 @@ def get_weather(city: str, api_key: Optional[str] = None) -> Optional[float]:
         if temperature is None:
             raise WeatherServiceError("Temperature data is missing in the response")
         return temperature
-    except ValueError as e:
+    except AttributeError as e:
         raise WeatherServiceError("Failed to parse weather data") from e
