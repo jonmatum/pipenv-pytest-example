@@ -77,7 +77,7 @@ def test_get_weather_json_parsing_error(mocker):
         "requests.get",
         return_value=mocker.MagicMock(status_code=200, json=lambda: "Invalid Json"),
     )
-    
+
     with pytest.raises(WeatherServiceError, match="Failed to parse weather data"):
         get_weather("New York", api_key="test_api_key")
 
